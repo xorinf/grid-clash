@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WordSearch Pro</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/interactive.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <span class="logo">WORDSEARCH</span>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#help">Guide</a>
+                <a href="#team">Team</a>
+                <a href="#stats">Leaderboards</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Player Details Form -->
+    <!-- <section id="playerDetailsForm" class="player-details-section"> ... </section> -->
+
+    <main class="hero-section" id="mainContent">
+        <div class="hero-content">
+            <h1 class="hero-title">Challenge Your Mind</h1>
+            <div class="action-buttons">
+                <button class="modern-btn primary btn-3d"
+                        onclick="location.href='singleplayer.html'"
+                        data-analytics="play-solo">
+                    <span class="btn-icon">🧩</span>
+                    <span class="btn-text">Solo Play</span>
+                    <span class="btn-subtext">Practice Mode</span>
+                </button>
+                <button class="modern-btn secondary" onclick="checkDetailsAndGoMultiplayer()">
+                    <span class="btn-icon">🌐</span>
+                    Multiplayer
+                    <span class="btn-subtext">Live Competition</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <section id="dynamicContent" class="content-section"></section>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/dynamic.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load initial content
+            contentManager.render('featured', document.getElementById('dynamicContent'));
+            
+            // Track interactions
+            document.querySelectorAll('[data-analytics]').forEach(element => {
+                element.addEventListener('click', trackInteraction);
+            });
+        });
+
+        function trackInteraction(event) {
+            const analyticsData = {
+                element: event.target.dataset.analytics,
+                timestamp: new Date().toISOString()
+            };
+            navigator.sendBeacon('/api/analytics', JSON.stringify(analyticsData));
+        }
+    </script>
+</body>
+</html> 

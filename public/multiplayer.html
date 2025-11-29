@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplayer - WordSearch</title>
+    <link rel="stylesheet" href="/css/shared.css">
+    <link rel="stylesheet" href="/css/multiplayer.css">
+</head>
+<body>
+    <!--#include virtual="/partials/header.html" -->
+    <main class="multiplayer">
+        <div id="connectionIndicator" class="connection-indicator disconnected"></div>
+        <div id="userMessages" class="user-messages"></div> <!-- Message Area -->
+
+        <div class="lobby-container" id="lobbyContainer">
+            <h2>Multiplayer Lobby</h2>
+
+            <!-- Settings Form (shown only for host creation) -->
+            <form id="gameSettingsMulti" class="multiplayer-settings" style="display: none;">
+                 <h3>Create a New Game</h3>
+                 <div class="form-group">
+                    <label for="categoryMulti">Category:</label>
+                    <select id="categoryMulti" name="category">
+                        <option value="general">General</option>
+                        <option value="tech">Technology</option>
+                        <option value="animals">Animals</option>
+                        <option value="food">Food</option>
+                        <option value="countries">Countries</option>
+                        <!-- Add more options if server has them -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="difficultyMulti">Difficulty:</label>
+                    <select id="difficultyMulti" name="difficulty">
+                        <option value="easy">Easy (10 words)</option>
+                        <option value="medium" selected>Medium (15 words)</option>
+                        <option value="hard">Hard (20 words)</option>
+                    </select>
+                </div>
+                 <button type="submit" id="createGameButton" class="action-button create">Create Game</button>
+             </form>
+
+             <!-- Join Game Button (shown if a game is available) -->
+            <div id="joinGameSection" style="display: none;">
+                <h3>A Game is Available!</h3>
+                 <button id="joinGameButton" class="action-button join">Join Game</button>
+             </div>
+
+            <p>Status: <span id="statusMessage">Connecting...</span></p>
+            <!-- Waiting Message (shown after creating/joining) -->
+            <p id="waitingMessage" style="display: none;">Waiting for opponent...</p>
+            <!-- Player List (shown while waiting) -->
+            <div id="playerList" style="display: none;">
+                <h3>Players:</h3>
+                <!-- Player list will be populated dynamically -->
+            </div>
+        </div>
+
+        <div class="game-container" id="gameContainer" style="display: none;">
+            <div class="game-header">
+                <div class="player-info player-self">
+                    <h3>You</h3>
+                    <div class="score-box">Score: <span id="myScore">0</span></div>
+                </div>
+                <div class="timer">Time: <span id="time">00:00</span></div>
+                <div class="player-info player-opponent">
+                    <h3>Opponent</h3>
+                    <div class="score-box">Score: <span id="opponentScore">0</span></div>
+                </div>
+            </div>
+            <div class="word-list-header">
+                <h2>Words to Find</h2>
+                <div class="word-list" id="word-list"></div>
+            </div>
+            <div class="grid-container">
+                <table id="grid"></table>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="gameOverModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2 id="gameOverTitle">Game Over!</h2>
+                <p id="gameOverReason"></p>
+                <div id="gameOverScores"></div>
+            </div>
+        </div>
+
+    </main>
+    <!--#include virtual="/partials/footer.html" -->
+    <!-- Make sure socket.io client library is included if not done globally -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/multiplayer.js"></script>
+</body>
+</html> 
