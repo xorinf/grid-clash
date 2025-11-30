@@ -5,7 +5,7 @@ A real-time multiplayer word search game built with Node.js, Express, and Socket
 > [!NOTE]
 > **Version:** 25w12a 1.0
 > **Status:** Version 2.0 is coming soon!
-
+> It can be Viewed at `https://firebase.google.com/grid-maxxing`
 ## Features
 
 - **Real-time Multiplayer**: Play against other players in real-time.
